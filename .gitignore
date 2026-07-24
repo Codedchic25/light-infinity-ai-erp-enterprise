@@ -1,0 +1,40 @@
+﻿# Medii virtuale si dependinte
+.venv/
+node_modules/
+
+# Configoratii si secrete (CRITIC)
+.env
+.env.*
+
+# Baze de date locale si Vector Stores
+chroma_db/
+data/
+*.db
+light_infinity_dev.db
+
+# Cache-uri instrumente de testare si calitate cod
+.logfire/
+.pytest_cache/
+.ruff_cache/
+.promptfoo/
+
+# Cache Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Fisiere de configurare IDE / OS
+.vscode/
+.idea/
+Thumbs.db
+.DS_Store
+
+# Facturi generate local (Corectat conform discului)
+invoices/
+storage/invoices/
+
+# Unelte si fisiere binare
+bfg.jar
+
+

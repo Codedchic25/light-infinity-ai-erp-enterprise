@@ -1,0 +1,42 @@
+version: '3.8'
+
+services:
+  # --- SERVERUL CENTRAL BACKEND (FastAPI - Port 8000) ---
+  backend:
+    build: .
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    volumes:
+      - .:/workspace
+      - /workspace/.venv # Previne suprascrierea venv-ului local în container
+    command: python -m uvicorn main:app --host 0.0.0.0 --port 8000 --reload
+
+  # --- INTERFAȚA GRAFICĂ ADMIN ERP (Streamlit - Port 8520) ---
+  admin_erp:
+    build: .
+    ports:
+      - "8520:8520"
+    env_file:
+      - .env
+    volumes:
+      - .:/workspace
+      - /workspace/.venv
+    command: python -m streamlit run dashboard.py --server.port 8520 --server.address 0.0.0.0
+    depends_on:
+      - backend
+
+  # --- INTERFAȚA GRAFICĂ E-SHOP PUBLIC (Streamlit - Port 8599) ---
+  public_shop:
+    build: .
+    ports:
+      - "8599:8599"
+    env_file:
+      - .env
+    volumes:
+      - .:/workspace
+      - /workspace/.venv
+    command: python -m streamlit run frontend/public_shop.py --server.port 8599 --server.address 0.0.0.0
+    depends_on:
+      - backend
